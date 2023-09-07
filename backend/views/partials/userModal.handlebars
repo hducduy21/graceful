@@ -1,0 +1,81 @@
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="loginModalLabel">Login</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Login form -->
+                <form action="/auth/login" method="post">
+                    <div class="mb-3">
+                        <label for="emailInputLogin" class="form-label">Email address</label>
+                        <input type="email" class="form-control" name="email" id="emailInputLogin"
+                            aria-describedby="emailHelp">
+                    </div>
+                    <div class="mb-3">
+                        <label for="passwordInputLogin" class="form-label">Password</label>
+                        <input type="password" name="password" class="form-control" id="passwordInputLogin">
+                    </div>
+                    <div style="color: red;" class="login_error mb-3">
+                        {{!-- <p>The password must contain at least one letter.</p> --}}
+                    </div>
+                    <button type="button" class="btn btn-primary login_btn" onclick="login()">Login</button>
+                    <button type="button" class="btn btn-outline-primary signup_btn"
+                        onclick="signupShow()">Signup</button>
+                </form>
+                <!-- Login with Google -->
+                <hr>
+                <p>Or login with Google:</p>
+                <button class="btn btn-outline-primary" id="googleLoginBtn"><img src="/image/google.png"
+                        class="google_image mr-2" alt="google" />Login with Google</button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="signupModalLabel">Signup</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- signup form -->
+                <form action="/auth/signup" method="post">
+                    <div class="mb-3">
+                        <label for="nameInputSignin" class="form-label">Name</label>
+                        <input type="text" class="form-control" name="email" id="nameInputSignin">
+                    </div>
+                    <div class="mb-3">
+                        <label for="emailInputSignin" class="form-label">Email address</label>
+                        <input type="email" class="form-control" name="email" id="emailInputSignin"
+                            aria-describedby="emailHelp">
+                    </div>
+                    <div class="mb-3">
+                        <label for="passwordInputSignin" class="form-label">Password</label>
+                        <input type="password" name="password" class="form-control" id="passwordInputSignin">
+                    </div>
+                    <div class="mb-3">
+                        <label for="RePasswordInputSignin" class="form-label">Confirm password</label>
+                        <input type="password" name="password" class="form-control" id="RePasswordInputSignin">
+                    </div>
+                    <button type="button" class="btn btn-primary signup_btn">Signup</button>
+                    <button type="button" class="btn btn-outline-primary login_btn" onclick="loginShow()">Login</button>
+                </form>
+                <!-- signup with Google -->
+                <hr>
+                <p>Or Login with Google:</p>
+                <button class="btn btn-outline-primary" id="googleLoginBtn"><img src="/image/google.png"
+                        class="google_image mr-2" alt="google" />Login with Google</button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

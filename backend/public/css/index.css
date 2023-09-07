@@ -1,0 +1,16 @@
+:root {
+    --main-bg: var(--main-1);
+    --temp: red;
+    --main: #1E3799;
+    --main-1: #ffffff;
+    --main-2: #1e272e;
+    --range-volume-value: 100;
+    --range-time-song-value: 0;
+    --active: #4066ff;
+}
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}

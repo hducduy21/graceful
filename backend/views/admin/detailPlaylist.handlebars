@@ -1,0 +1,69 @@
+<div class="detail_middle_content">
+    <div class="detail_banner" style="
+                            background-image: url('/image/{{bannerImg}}');
+                        ">
+        <div class="detail_banner_backdrop"></div>
+        <div class="detail_card_info">
+            <img src="/image/{{squareImg}}" alt="" />
+            <div class="detail_card_title">
+                <div class="detail_card_name">{{ name }}</div>
+                <div class="detail_card_singer">
+                    {{ view }} listens
+                </div>
+            </div>
+        </div>
+        <button type="button" class="detail_card_play fa fa-play fa-3x" onclick="changePlaylistPlay(this,'{{ id }}')">
+        </button>
+    </div>
+    <button class="btn btn-info m-2"  data-toggle="modal" data-target="#selectSong">Thêm bài hát cho {{name}}</button>
+    <div class="middle_element row">
+        
+        <div class="col-6 list_left">
+
+        </div>
+        <div class="col-6 list_right">
+
+        </div>
+    </div>
+</div>
+<script>
+    let playlistIndex = "{{ id }}"
+    $(document).ready(() => {
+        fetch("/api/playlist/song?id={{id}}", {
+            method: "GET", headers: {
+                "Content-Type": "application/json; charset=utf-8"
+            }
+        }).then(data => data.json()).then(data => {
+            let temp = 1
+            data.forEach((e) => {
+                let el = `<div class="card_song">
+                <div class="card_song_rank">`+ temp + `</div>
+                <img src="`+ e.img + `" alt="user" />
+                <div class="card_song_info">
+                    <span class="card_song_name" onclick="window.location.href='/manage/song/`+ e.id + `'">` + e.title + `</span>
+                    <span class="card_song_author"><i class="fa-sharp fa-solid fa-music mr-2" onclick="window.location.href='/manage/playlist/`+ e.authorID + `'"></i>`+ e.author + `</span>
+                </div>
+                <div class="card_song_action">
+                    <div class="card_song_action_add">
+                        <i class="fa-sharp fa-solid fa-plus"></i>
+                    </div>
+                    <div class="card_song_action_like">
+                        <i class="fa-regular fa-heart"></i>
+                    </div>
+                </div>
+            </div>`
+                if (temp % 2 == 0) {
+                    $(".list_right").append(el)
+                    temp = temp + 1
+                }else{
+                     $(".list_left").append(el)
+                    temp = temp + 1
+                }
+
+            })
+        })
+    })
+
+
+
+</script>

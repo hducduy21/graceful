@@ -1,0 +1,100 @@
+<div class="detail_middle_content">
+    <div class="detail_banner" style="
+                            background-image: url('/image/{{bannerImg}}');
+                        ">
+        <div class="detail_banner_backdrop"></div>
+        <div class="detail_card_info">
+            <img src="/image/{{squareImg}}" alt="" />
+            <div class="detail_card_title">
+                <div class="detail_card_name">{{ name }}</div>
+                <div class="detail_card_singer">
+                    {{ view }} listens
+                </div>
+            </div>
+        </div>
+        <button type="button" class="detail_card_play fa fa-play fa-3x" onclick="changePlaylistPlay(this,'{{ id }}')">
+        </button>
+    </div>
+    <div class="middle_element row">
+        <div class="col-5 list_left">
+            <button class="btn btn-info m-2" onclick="window.location.href = '/manage?artist={{artist}}'">Thêm bài hát cho {{name}}</button>
+            
+            <form>
+                <div class="form-group">
+                    <label for="idSong">Id</label>
+                    <input type="text" disabled class="form-control artist_input_id_1" id="idSong" value="{{artist}}" />
+                </div>
+                <div class="form-group">
+                    <label for="nameSong">Name</label>
+                    <input type="text" class="form-control artist_input_name_1" id="nameSong" value="{{name}}" />
+                </div>
+                <div class="form-group">
+                    <label>Gender</label>
+                    <select style="height: 27px;" class="artist_input_gender_1" class="p-1 form-control" id="gender"
+                        name="gender">
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>BirthDay</label>
+                    <input type="date" class="artist_input_birthday_1" value="{{ birthday }}" maxlength="50" />
+                </div>
+                <div class="form-group">
+                    <label>Avatar: (square image)</label>
+                    <input type="file" class="form-control artist_input_squareImage_1" />
+                </div>
+                <div class="form-group">
+                    <label>Image: (ratio recommend: 16:9)</label>
+                    <input type="file" class="form-control artist_input_rectImage_1" />
+                </div>
+                <div class="form-group">
+                    <label style="display: block">Short description</label>
+                    <textarea name="shortDesc artist_input_desc_1"
+                        id="shortDesc">{{#if desc}} {{ desc }} {{/if}}</textarea>
+                </div>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#submitUpdateArtist">
+                    Submit
+                </button>
+            </form>
+        </div>
+        <div class="col-7 list_right">
+
+        </div>
+    </div>
+</div>
+<script>
+    let playlistIndex = "{{ artist }}"
+    $(document).ready(() => {
+        fetch("/api/playlist/song?id={{id}}", {
+            method: "GET", headers: {
+                "Content-Type": "application/json; charset=utf-8"
+            }
+        }).then(data => data.json()).then(data => {
+            let temp = 1
+            data.forEach((e) => {
+                let el = `<div class="card_song">
+                <div class="card_song_rank">`+ temp + `</div>
+                <img src="`+ e.img + `" alt="user" />
+                <div class="card_song_info">
+                    <span class="card_song_name" onclick="window.location.href='/manage/song/`+e.id+`'">`+ e.title + `</span>
+                    <span class="card_song_author"><i class="fa-sharp fa-solid fa-music mr-2"></i>`+ e.author + `</span>
+                </div>
+                <div class="card_song_action">
+                    <div class="card_song_action_add">
+                        <i class="fa-sharp fa-solid fa-plus"></i>
+                    </div>
+                    <div class="card_song_action_like">
+                        <i class="fa-regular fa-heart"></i>
+                    </div>
+                </div>
+            </div>`
+                $(".list_right").append(el)
+                temp = temp + 1
+            })
+        })
+    })
+
+
+
+</script>

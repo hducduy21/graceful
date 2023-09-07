@@ -1,0 +1,170 @@
+<div class="detail_middle_content">
+    <div class="detail_banner" style="
+                            background-image: url('/image/{{#if image }}{{image}} {{else}}pexels-suzy-hazelwood-1629236.jpg{{/if}}');
+                        ">
+        <div class="detail_banner_backdrop"></div>
+        <div class="detail_card_info">
+            <img src="/image/{{artistImage}}" alt="{{ name }}" />
+            <div class="detail_card_title">
+                <div class="detail_card_name">
+                    {{ name }}
+                </div>
+                <div class="detail_card_singer">
+                    <p class="p-0 m-0">{{ artist }}</p> <i style="font-size: 10px;" class="fa-solid fa-circle ml-2"></i>
+                    <p style="font-size: 18px;" class="p-0 m-0 ml-2">{{ view }}</p>
+                </div>
+            </div>
+        </div>
+        <button type="button" class="detail_card_play fa fa-play fa-3x" onclick="changeSongPlay(this,{
+                                id: '{{id}}',
+                                title: '{{name}}',
+                                file: '/audio/{{link}}',
+                                author: '{{artist}}',
+                                img: '/image/{{artistImage}}'
+                            })">
+            {{!-- <span class="fa fa-play fa-3x ml-1"></span> --}}
+        </button>
+    </div>
+    <div class="row detail_relative">
+        <div class="col-4">
+            <h2>Edit song profile</h2>
+            <form>
+                <div class="form-group">
+                    <label for="idSong">Id</label>
+                    <input type="text" disabled class="form-control song_input_id_1" id="idSong" value="{{id}}" />
+                </div>
+                <div class="form-group">
+                    <label for="nameSong">Name</label>
+                    <input type="text" class="form-control song_input_name_1" id="nameSong" value="{{name}}" />
+                </div>
+                <div class="form-group">
+                    <label>Arctist</label>
+                    <input type="text" class="form-control song_input_author_1" value="{{artist}}" />
+                    Click <a style="color: blue;" onclick="chooseArtist(1)"> here </a> to
+                            change Artist
+                </div>
+                <div class="form-group">
+                    <label>Debut Year</label>
+                    <input type="number" class="form-control song_input_year_1" value="{{year}}" />
+                </div>
+                <div class="form-group">
+                    <label>Audio</label>
+                    <input type="file" class="form-control song_input_audio_1" />
+                </div>
+                <div class="form-group">
+                    <label>Image: Required an image with an aspect
+                        ratio (width/height) = 2.8</label>
+                    <input type="file" class="form-control song_input_image_1" />
+                </div>
+                <div class="form-group">
+                    <label style="display: block">Short description</label>
+                    <textarea name="shortDesc " class="song_input_desc_1" id="shortDesc">{{#if desc}} {{ desc }} {{/if}}</textarea>
+                </div>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#submitUpdateSong" >
+                    Submit
+                </button>
+            </form>
+        </div>
+        <div class="col-8">
+            <h2>Create lyrict running</h2>
+            <button class="btn btn-primary createLyricts" type="button">
+                Create
+            </button>
+
+            <div class="row pt-3 d-none createLyricts_right_tab">
+                <div class="col-6">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th style="width: 20px">
+                                    timeline
+                                </th>
+                                <th>lyrics</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table_body_lyric"></tbody>
+                    </table>
+                    <form>
+                        <textarea id="lyricsInsertValue"></textarea>
+                    </form>
+                    <button class="btn btn-success p-1 px-2 mt-2 addLyrics" type="button">
+                        Add
+                    </button>
+                </div>
+                <div class="col-6">
+                    <div class="lyrics" style="height:250px">
+                        <div class="lyrics__title">
+                            {{name}}
+                        </div>
+                        <div class="lyrics__content">
+                            <span class="lyrics__content--active lyrics_run_1"></span>
+                            <span class="lyrics__content--prepare-0 lyrics_run_2"></span>
+                            <span class="lyrics__content--prepare-0 lyrics_run_3"></span>
+                            <span class="lyrics__content--prepare-1 lyrics_run_4"></span>
+                            <span class="lyrics__content--prepare-2 lyrics_run_5"></span>
+                            <span class="lyrics__content--prepare-2 lyrics_run_6"></span>
+                        </div>
+                        <span class="lyrics__content--prepare-3">...</span>
+                        <!-- <div class="lyrics__toall">xem thêm...</div> -->
+                    </div>
+                </div>
+                <button class="btn btn-primary saveLyrics" type="button" style="margin-left: auto;">
+                    Save change
+                </button>
+            </div>
+            <div class="row pt-3 createLyricts_right_tab--prepare">
+                <div class="col-6">
+                </div>
+                <div class="col-6">
+                    <div class="lyrics"  style="height:250px">
+                        <div class="lyrics__title">
+                            {{name}}
+                        </div>
+                        <div class="lyrics__content">
+                            <span class="lyrics__content--active lyrics_run_1"></span>
+                            <span class="lyrics__content--prepare-0 lyrics_run_2"></span>
+                            <span class="lyrics__content--prepare-0 lyrics_run_3"></span>
+                            <span class="lyrics__content--prepare-1 lyrics_run_4"></span>
+                            <span class="lyrics__content--prepare-2 lyrics_run_5"></span>
+                            <span class="lyrics__content--prepare-2 lyrics_run_6"></span>
+                        </div>
+                        <span class="lyrics__content--prepare-3">...</span>
+                        <!-- <div class="lyrics__toall">xem thêm...</div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 mt-5">
+            <h2>Comment manager</h2>
+            <table class="table table_comment">
+                <thead>
+                    <tr>
+                        <th class="p-1" style="width: 100px">
+                            User
+                        </th>
+                        <th class="p-1">Comment</th>
+                        <th class="p-1" style="width: 100px">
+                            Delete
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="p-1">
+                        <td class="p-1 userComment">
+                            <img src="/image/user.png" alt="User" />
+                            Duy
+                        </td>
+                        <td class="p-1">
+                        </td>
+                        <td class="p-1">
+                            <button class="btn action_delete_comment fa-solid fa-trash" data-toggle="modal"
+                                data-target="#submitDeleteComment" title="Delete song" type="button"></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script>
+</script>

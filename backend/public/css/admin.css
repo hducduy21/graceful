@@ -1,0 +1,54 @@
+tbody td>input {
+    width: 100%;
+}
+thead{
+    text-align: center;
+}
+td>textarea {
+    width: 100%;
+    height: 30px;
+}
+html{
+    z-index: 1;
+}
+.admin_middle {
+    height: 100%;
+    z-index: 1;
+}
+.admin_middle_content{
+    height: calc(100vh - 90px);
+    padding: 15px;
+    overflow-y: scroll;
+}
+.table_action{
+    display: flex;
+    justify-content: center;
+}
+.table_action>*{
+    color: #8c8c8c;
+}
+textarea{
+    max-height: 500px;
+}
+.bar__control{
+    display: flex;
+    justify-content: center;
+}
+#lyricsInsertValue{
+    width: 100%;
+}
+.addLyrics {
+    float: right;
+}
+
+.progress {
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 5px;
+  height: 10px;
+}
+
+.progress-bar {
+  background-color: var(--main);
+  height: 10px;
+}  

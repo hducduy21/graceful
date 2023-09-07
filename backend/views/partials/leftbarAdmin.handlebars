@@ -1,0 +1,73 @@
+<div class="col-2 left">
+    <div class="left__logo">
+        <img src="/image/logo1.png" alt="logo" />
+        <!-- <img src="/image//logo3.png" alt="logo" /> -->
+    </div>
+    <div class="left__tab tabs">
+        <div class="tabs__home tab {{#if SongManage }} tab--active {{/if}}">
+            <table>
+                <tr onclick="window.location.href = '/manage'">
+                    <td class="tab__icon">
+                        <i class="fa-solid fa-music"></i>
+                    </td>
+                    <td class="tab__name">Song manager</td>
+                </tr>
+            </table>
+        </div>
+        <div class="tabs__search tab {{#if ArtistManage }} tab--active {{/if}}">
+            <table>
+                <tr onclick="window.location.href = '/manage/artist'">
+                    <td class="tab__icon">
+                        <i class="fa-solid fa-microphone"></i>
+                    </td>
+                    <td class="tab__name">Artist manager</td>
+                </tr>
+            </table>
+        </div>
+        
+        <div class="tabs__library tab {{#if PlaylistManage }} tab--active {{/if}}">
+            <table>
+                <tr onclick="window.location.href = '/manage/playlist'">
+                    <td class="tab__icon">
+                        <i class="fa-solid fa-list"></i>
+                    </td>
+                    <td class="tab__name">PlayList manager</td>
+                </tr>
+            </table>
+        </div>
+        <div class="tabs__search tab {{#if UserManage }} tab--active {{/if}}">
+            <table>
+                <tr>
+                    <td class="tab__icon">
+                        <i class="fa-solid fa-users"></i>
+                    </td>
+                    <td class="tab__name">User manager</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="left__tab tabs">
+        <div class="tabs__title">Settings</div>
+        <div class="tabs__home tab">
+            <table>
+                <tr>
+                    <td class="tab__icon">
+                        <i class="fa-solid fa-user"></i>
+                    </td>
+                    <td class="tab__name">Account</td>
+                </tr>
+            </table>
+        </div>
+        <div class="tabs__search tab">
+            <table>
+                <tr>
+                    <td class="tab__icon">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                    </td>
+                    <td class="tab__name">Log Out</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

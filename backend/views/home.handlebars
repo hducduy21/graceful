@@ -1,0 +1,130 @@
+<div class="middle__content">
+    <!-- Song rank -->
+    <h3 class="middle_title">#GraceChart {{month}}</h3>
+    <div class="middle_element row GraceChart">
+        <div class="chart_top_1 col-6 GraceChart_left">
+
+        </div>
+        <div class="chart_top col-6 GraceChart_right">
+
+
+        </div>
+    </div>
+    <div class="category_row">
+        <div class="middle_element list_card_playlist list_card_playlist-bestPlaylist">
+
+
+        </div>
+    </div>
+
+</div>
+<script>
+    fetch("/api/song/chart", {
+        method: "GET", headers: {
+            "Content-Type": "application/json; charset=utf-8"
+        }
+    }).then(data => data.json()).then(data => {
+        $(".GraceChart_left").empty()
+        $(".GraceChart_right").empty()
+        $(".GraceChart_left").append(`<img class="banner_top_1" src="/image/` + data[0].artist[0].image.bannerImg + `" alt="Top1" />`)
+        for (let idTemp = 0; idTemp < 5; idTemp++) {
+            let element = `<div class="card_song">
+                <div class="card_song_rank">`+ (idTemp + 1) + `</div>
+                <img src="/image/` + data[idTemp].artist[0].image.squareImg + `" alt="user" />
+                <div class="card_song_info">
+                    <span  class="card_song_name" onclick="window.location.href = '/song/` + data[idTemp]._id + `'">` + data[idTemp].title + `</span>
+                    <span class="card_song_author" onclick="window.location.href = '/playlist/` + data[idTemp].artist[0].author + `'"><i class="fa-sharp fa-solid fa-music mr-2"></i>` + data[idTemp].artist[0].name + `</span>
+                </div>
+                <div class="card_song_action">
+                    <div class="card_song_action_add"><i class="fa-sharp  fa-solid fa-play fa-xs" onclick="changeSongPlay(this,{
+                                id: '`+ data[idTemp]._id + `',
+                                title: '`+ data[idTemp].title + `',
+                                file: '/audio/`+ data[idTemp].link + `',
+                                author: '`+ data[idTemp].artist[0].name + `',
+                                img: '/image/`+ data[idTemp].artist[0].image.squareImg + `'
+                            })"></i></div>
+                    <div class="card_song_action_like"><i class="fa-regular fa-heart"></i></i></div>
+                </div>
+            </div>`
+            if (idTemp == 0) {
+                $(".GraceChart_left").append(element)
+            } else {
+                $(".GraceChart_right").append(element)
+            }
+        }
+    })
+    async function getPlaylistData() {
+        const response = await fetch('/api/playlist/home', {
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+            }
+        });
+        const data = await response.json();
+        return data;
+    }
+
+    async function getSquareImg(id) {
+        const response = await fetch('/api/playlist/squareimg?id=' + id, {
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+            }
+        });
+        const data = await response.json();
+        return data;
+    }
+
+    async function generatePlaylistCards(playlist) {
+        let cards = '';
+        for (let i = 0; i < 5; i++) {
+            const imgData = await getSquareImg(playlist[i]._id);
+            let desc = playlist[i].desc || ""
+            let card = `
+            <div class="playlist_card playlist_card-bestPlaylist">
+                <div class="playlist_card_img" style="background-image: url('/image/${imgData}')">
+                <div class="playlist_card_info">
+                    <h4 class="p-0 m-0" onclick="window.location.href='/playlist/${playlist[i]._id}'">${playlist[i].title}</h4>
+                    <p class="p-0 m-0">${desc}</p>
+                </div>
+                </div>
+                <div class="playlist_card_play" >
+                    <span class="fa fa-play fa-4x" onclick="changePlaylistPlay(this,'${playlist[i]._id}')"></span>
+                </div>
+            </div>
+            `;
+            if (i === 4) {
+                card = `<div class="playlist_card playlist_card-bestPlaylist laylist_card-bestPlaylist--last d-none">
+                <div class="playlist_card_img" style="background-image: url('/image/${imgData}')">
+                <div class="playlist_card_info">
+                    <h4 class="p-0 m-0" onclick="window.location.href='/playlist/${playlist[i]._id}'">${playlist[i].title}</h4>
+                    <p class="p-0 m-0">${playlist[i].desc}</p>
+                </div>
+                </div>
+                <div class="playlist_card_play" >
+                    <span class="fa fa-play fa-4x" onclick="changePlaylistPlay(this,'${playlist[i]._id}')"></span>
+                </div>
+            </div>
+            `;
+            }
+            cards += card;
+        }
+        return cards;
+    }
+
+    async function renderPlaylists() {
+        const data = await getPlaylistData();
+        const container = $(".list_card_playlist");
+        container.empty();
+        for (const e of data) {
+            const cards = await generatePlaylistCards(e.playlist);
+            const row = `
+      <div class="middle_element list_card_playlist list_card_playlist-bestPlaylist p-0">
+        <h3 class="middle_title" style="width:100%">${e.name}</h3>
+        ${cards}
+      </div>
+    `;
+            container.append(row);
+        }
+    }
+
+    renderPlaylists();
+</script>

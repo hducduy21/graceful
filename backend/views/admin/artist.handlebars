@@ -1,0 +1,172 @@
+<div class="admin_middle_content">
+    <div class="Add_Song mb-5">
+        <h2>Create new artist</h2>
+        <form>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th style="width: 20px">Id</th>
+                        <th>Name</th>
+                        <th>Gender</th>
+                        <th>BirthDay</th>
+                        <th style="width: 240px">Image 1:1</th>
+                        <th style="width: 240px">Image 16:9</th>
+                        <th>Short description</th>
+                    </tr>
+                </thead>
+                <tbody class="add_table_body">
+                    <tr class="artist_input_1">
+                        <td class="p-1">
+                            <input type="text" disabled required maxlength="50" />
+                        </td>
+                        <td class="p-1">
+                            <input type="text" class="artist_input_name_1" required maxlength="50" />
+                        </td>
+                        <td class="p-1">
+                            <select style="height: 27px;" class="artist_input_gender_1" class="p-1 form-control"
+                                id="gender" name="gender">
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                        </td>
+
+                        <td class="p-1">
+                            <input type="date" class="artist_input_birthday_1" required maxlength="50" />
+                        </td>
+                        <td class="p-1">
+                            <input type="file" class="artist_input_squareImage_1" required maxlength="50" />
+                        </td>
+                        <td class="p-1">
+                            <input type="file" class="artist_input_rectImage_1" required maxlength="50" />
+                        </td>
+                        <td class="p-1">
+                            <textarea class="artist_input_desc_1" name="" id="" cols="30" rows="10"></textarea>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                </div>
+            </div>
+            <button class="btn btn-secondary p-1 add_1_line" type="button">
+                +1 artist
+            </button>
+            <button class="btn btn-primary p-1" type="button" data-toggle="modal" data-target="#submitAddArtist">
+                Submit
+            </button>
+        </form>
+    </div>
+    <div>
+        <h2>Manage artist</h2>
+        <form>
+            <table class="table" style="font-size: 14px">
+                <thead>
+                    <tr>
+                        <th class="p-2" style="width: 200px">
+                            Id
+                        </th>
+                        <th class="p-2">
+                            Name
+                        </th>
+                        <th class="p-2">
+                            Gender
+                        </th>
+                        <th class="p-2">
+                            Birthday
+                        </th>
+                        <th class="p-2" style="width: 100px">
+                            Views
+                        </th>
+                        <th class="p-2" style="width: 100px">
+                            Date create
+                        </th>
+                        <th class="p-2">Action</th>
+                    </tr>
+                </thead>
+                <tbody class="list_table_body">
+                </tbody>
+            </table>
+        </form>
+    </div>
+</div>
+<script>
+    let page = {{ page }}
+    let pageSize = 20
+    let elementRow = (i) => {
+        return `<tr class="artist_input_` + i + `">
+                        <td class="p-1">
+                            <input type="text" disabled required maxlength="50" />
+                        </td>
+                        <td class="p-1">
+                            <input type="text" class="artist_input_name_` + i + `" required maxlength="50" />
+                        </td>
+                        <td class="p-1">
+                            <select style="height: 27px;" class="artist_input_gender_` + i + `" class="p-1 form-control" id="gender" name="gender">
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                        </td>
+                        
+                        <td class="p-1">
+                            <input type="date" class="artist_input_birthday_` + i + `" required maxlength="50" />
+                        </td>
+                        <td class="p-1">
+                            <input type="file" class="artist_input_squareImage_` + i + `" required maxlength="50" />
+                        </td>
+                        <td class="p-1">
+                            <input type="file" class="artist_input_rectImage_` + i + `" required maxlength="50" />
+                        </td>
+                        <td class="p-1">
+                            <textarea class="artist_input_desc_` + i + `" name="" id="" cols="30" rows="10"></textarea>
+                        </td>
+                    </tr>`}
+    function reloadArtistManage() {
+        fetch('/api/artist?page=' + page + '&size=' + pageSize, {
+            headers: {
+                "Content-Type": "application/json; charset=utf-8"
+            }
+        }).then(data => data.json()).then(data => {
+            $(".list_table_body").empty()
+            data.forEach(e => {
+                if (e.birthday) {
+                    birthday = e.birthday
+                }
+                else
+                    birthday = ''
+                let date = new Date(e.createdAt);
+                date = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
+                let songRow = `<tr>
+                        <td class="p-1">
+                            <input type="text" disabled maxlength="50" value="`+ e._id + `"/>
+                        </td>
+                        <td class="p-1">
+                            <input type="text" disabled maxlength="50" value="`+ e.name + `"/>
+                        </td>
+                        <td class="p-1">
+                            <select style="height: 27px;" class="p-1 form-control" id="gender" name="gender" value="male" disabled>
+                                <option value="female">Female</option>
+                                <option value="male">Male</option>
+                                
+                            </select>
+                        </td>
+                        <td class="p-1"><input type="date" value="`+ birthday + `" disabled maxlength="50" /></td>
+                        <td class="p-1">`+ e.view + `</td>
+                        <td class="p-1">`+ date + `</td>
+
+                        <td class="p-1 table_action">
+                            <button class="btn action_edit fa-solid fa-pen-to-square" title="Edit detail of song" onclick="window.location.href='/manage/playlist/`+e.author._id+`'"
+                                type="button"></button>
+                            <button class="btn action_delete fa-solid fa-trash"  onclick="deleteArtist('`+ e.name + `','`+ e._id + `')" title="Delete song" type="button"></button>
+                        </td>
+                    </tr>`
+
+                $(".list_table_body").append(songRow)
+            })
+
+        })
+    }
+    $(document).ready(() => {
+        reloadArtistManage()
+    })
+</script>

@@ -1,0 +1,65 @@
+<div class="col-2 left">
+    <div class="left__logo" onclick="window.location.href='/'">
+        <img src="/image/logo1.png" alt="logo" />
+        <!-- <img src="./assets/Image//logo3.png" alt="logo" /> -->
+    </div>
+    <div class="left__tab tabs">
+        <div class="tabs__home tab tab--active">
+            <table>
+                <tr  onclick="window.location.href='/'">
+                    <td class="tab__icon">
+                        <i class="fa-solid fa-house"></i>
+                    </td>
+                    <td class="tab__name">Home</td>
+                </tr>
+            </table>
+        </div>
+        <div class="tabs__search tab">
+            <table>
+                <tr>
+                    <td class="tab__icon">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </td>
+                    <td class="tab__name">Search</td>
+                </tr>
+            </table>
+        </div>
+        <div class="tabs__library tab">
+            <table>
+                <tr>
+                    <td class="tab__icon">
+                        <i class="fa-solid fa-bookmark"></i>
+                    </td>
+                    <td class="tab__name">Library</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="left__tab tabs">
+        <div class="tabs__title playlist_title">
+            <p style="display: inline;" class="p-0 m-0 ">Your playlist</p><i class="fa-sharp fa-solid fa-plus"></i>
+        </div>
+        
+    </div>
+
+    <div class="left__tab tabs">
+        <div class="tabs__title">Settings</div>
+        <div class="tabs__home tab">
+            <table>
+                <tr onclick="loginShow()" class="setting_account">
+                    <td class="tab__icon">
+                        <i class="fa-solid fa-user"></i>
+                    </td>
+                    <td class="tab__name">Account</td>
+                </tr>
+                <tr onclick="accountShow()" class="setting_user" style="display: none;">
+                    <td class="tab__icon">
+                        <i class="fa-solid fa-user"></i>
+                    </td>
+                    <td class="tab__name user_name">Hoàng Đức Duy</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
